@@ -1,0 +1,21 @@
+{
+  "name": "halloween2018-server",
+  "version": "1.0.0",
+  "description": "for lolz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "daniel.gustavsson@vntrs.com",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "node-fetch": "^2.2.0",
+    "nodemon": "^1.18.5"
+  },
+  "engines": {
+    "node": "9.8.0"
+  }
+}
