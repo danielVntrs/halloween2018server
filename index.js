@@ -45,4 +45,4 @@ app.listen(PORT, () => {
 });
 
 // Serve static files from the React frontend app
-// app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "client/build")));
