@@ -2,51 +2,47 @@ const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const path = require("path");
+const PORT = process.env.PORT || 5000;
 
 const app = express();
+app.use(cors());
 
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
-// Anything that doesn't match the above, send back index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'))
-})
-
-app.get("/api/get-nearby-location", cors(), async (req, res, next) => {
+app.get("/api/get-nearby-location", async (req, res) => {
   try {
-    // const { lat1, lat2, long1, long2 } = req.params.latLong;
-    // const lat = parseFloat(`${lat1}.${lat2}8729`);
-    // const long = parseFloat(`${long1}${long2}47666`);
-    // const keyWord = "vntrs";
-    // const locationsAPIkey = "AIzaSyDdohXUiJvfctfpxhmrzGaImLxBZcUJtzo";
-    // const radius = 100;
-    // const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=${radius}&keyword=${keyWord}&key=${locationsAPIkey}`;
-    // const result = await fetch(url)
-    //   .then(response => response.json())
-    //   .then(data => data.results[0]);
-    // res.json({ result });
-    const result = await fetch(
-      "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=59.328729,18.0447666&radius=100&keyword=vntrs&key=AIzaSyCBI1Ibb4PHvyOh7EehV_oa8tTJlmLwdtk"
-    )
+    const data = JSON.parse(req.query.data);
+    const { a: lat1, b: lat2, c: long1, d: long2 } = data;
+    let lat = parseFloat(`${lat1}.${lat2}8729`);
+    let long = parseFloat(`${long1}.0${long2}47666`);
+    let keyWord = "vntrs";
+    let radius = 200;
+    if (lat1 !== 59 || lat2 !== 32 || long1 !== 18 || long2 !== 4) {
+      keyWord = "wrong";
+      radius = 1000;
+      lat = 33.0378183;
+      long = -117.296097;
+    }
+    const locationsAPIkey = "AIzaSyCBI1Ibb4PHvyOh7EehV_oa8tTJlmLwdtk";
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=${radius}&keyword=${keyWord}&key=${locationsAPIkey}`;
+    const result = await fetch(url)
       .then(response => response.json())
       .then(data => data.results[0]);
-    console.log("result: ", result);
     res.json({ result });
   } catch (err) {
-    next(err);
+    console.log(err);
   }
 });
 
-app.get("/api/hello", cors(), async (req, res, next) => {
+app.get("/api/hello", async (req, res) => {
   try {
-    const test = () => "<div>Hej! :D</div>";
-    res.json({ msg: "hej" });
+    res.send({ hello: "world" });
   } catch (err) {
-    next(err);
+    console.log(err);
   }
 });
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`fire up the halloween2018 server at port ${PORT}`);
 });
+
+// Serve static files from the React frontend app
+// app.use(express.static(path.join(__dirname, "client/build")));
