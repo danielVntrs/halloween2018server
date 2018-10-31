@@ -45,6 +45,7 @@ class App extends Component {
         apiResponseData: {}
       });
     };
+    console.log("this.state: ", this.state);
     const ShowResponse = () => {
       if (this.state.apiResponse) {
         const LosersButton = () => {

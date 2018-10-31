@@ -29,6 +29,7 @@ app.get("/api/get-nearby-location", async (req, res) => {
       .then(response => response.json())
       .then(data => data.results[0]);
     res.json({ result });
+    console.log("result after api call: ", result);
   } catch (err) {
     console.log(err);
   }
