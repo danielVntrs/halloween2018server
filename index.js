@@ -24,6 +24,7 @@ app.get("/api/get-nearby-location", async (req, res) => {
     }
     const locationsAPIkey = "AIzaSyCBI1Ibb4PHvyOh7EehV_oa8tTJlmLwdtk";
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=${radius}&keyword=${keyWord}&key=${locationsAPIkey}`;
+    console.log("URL used in API call: ", url);
     const result = await fetch(url)
       .then(response => response.json())
       .then(data => data.results[0]);

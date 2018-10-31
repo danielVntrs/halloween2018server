@@ -74,9 +74,8 @@ class App extends Component {
     const handleSubmit = e => {
       const updatedFormData = {};
       [...document.querySelectorAll(".data")].map(d => {
-        updatedFormData[d.innerText.toLowerCase()] = parseInt(
-          d.children[1].value
-        );
+        updatedFormData[d.innerText.toLowerCase()] =
+          parseInt(d.children[1].value) || 0;
       });
       console.log(updatedFormData);
       this.fetchPlace(updatedFormData);
