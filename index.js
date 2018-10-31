@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(cors());
 
-app.get("/api/get-nearby-location", async (req, res) => {
+app.get("/api/get-nearby-location", cors(), async (req, res) => {
   try {
     const data = JSON.parse(req.query.data);
     console.log("REQ data: ", data);
