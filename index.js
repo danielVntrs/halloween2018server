@@ -2,10 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const path = require("path");
+const GraphQLClient = require('graphql-request').GraphQLClient;
 const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(cors());
+
+const client = new GraphQLClient('https://api.graph.cool/simple/v1/cjorm3zrfqczf01392sascxl7', {
+  headers: {
+    Authorization: 'Bearer "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDM3NzkyNTksImlhdCI6MTU0MjkxNTI1OSwicHJvamVjdElkIjoiY2pvc3huZ3ZrMmk5NDAxNzhodmwxajVpNyIsInVzZXJJZCI6ImNqb3JtM3pyZnFjemYwMTM5MnNhc2N4bDciLCJtb2RlbE5hbWUiOiJRdWVzdGlvbiJ9.jOtHYmieZe2WxXPtjdS8KQ8dsyF-20lL_vCRj-BQjHc"',
+  },
+});
 
 app.get("/api/get-nearby-location", cors(), async (req, res) => {
   try {
@@ -34,6 +41,26 @@ app.get("/api/get-nearby-location", cors(), async (req, res) => {
     console.log(err);
   }
 });
+
+app.get("/api/get-questions", async (req, res) => {
+  try {
+    function getItem() {
+      return client.request(`
+        {
+          allQuestions {
+            id
+            question
+            answer
+          }
+        }
+      `)
+    }
+    const questions = await getItem();
+    res.json({ questions });
+  } catch (err) {
+    console.log(err)
+  }
+})
 
 app.get("/api/hello", async (req, res) => {
   try {

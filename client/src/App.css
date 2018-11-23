@@ -42,10 +42,12 @@
 
 .main-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   flex-wrap: nowrap;
   text-align: center;
+  width: 100%;
+  font-size: 20px;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -55,4 +57,32 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.questionBox {
+  width: 400px;
+  background: aliceblue;
+  border-width: 2px;
+  border: black;
+  border-style: solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding: 10px;
+  padding-bottom: 20px;
+  align-content: center;
+  justify-content: center;
+}
+
+.question-container {
+  align-self: center;
+}
+
+.hi-container {
+  padding-top: 50px;
+}
+
+.cheater {
+  color: crimson;
+  font-size: 25px;
 }
