@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-globals */
 
 import React, { Component } from "react";
-import { Form, Button } from "semantic-ui-react";
 
 export class Julbord extends Component {
   constructor(props) {
@@ -84,9 +83,7 @@ export class Julbord extends Component {
     };
 
     if (window && window.location) {
-      location.getExtraCoins = async () => {
-        // const fetchQuestions = await fetch('/api/get-questions');
-        // const questions = await fetchQuestions.json();
+      location.getExtraCoins = () => {
         this.setState({
           showGame: true,
           q: 0,
@@ -97,13 +94,6 @@ export class Julbord extends Component {
 
   render() {
     const { showGame, questions, q } = this.state;
-    console.log('this.state: ', this.state);
-
-    const handleAnswer = (event, id) => {
-      [...document.querySelectorAll(`#${id}`)].map(d => {
-        console.log(d)
-      });
-    }
 
     const Hi = () => {
       return (
@@ -129,24 +119,6 @@ export class Julbord extends Component {
         </div>
       )
     };
-
-    const getQuestion = current => {
-      return (
-        <div>
-          <p>Question:</p>
-          <div className="questionBox">
-            {current.question}
-          </div>
-          <Form>
-            <Form.Field id={`${current.id}`}>
-              <label>Answer</label>
-              <input placeholder='Your answer...' />
-            </Form.Field>
-            <Button type='submit' onClick={event => handleAnswer(event, current.id)}>Submit</Button>
-          </Form>
-        </div>
-      );
-    }
 
     const Q1 = () => {
       if (showGame) {
